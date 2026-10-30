@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>André's Tools</title>
+<meta name="description" content="Eine wachsende Sammlung von Dingen, die ich gebaut habe, um das Leben leichter zu machen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='28' fill='%23dbfb5f'/><text x='50' y='68' font-size='56' text-anchor='middle' font-family='Arial' font-weight='800' fill='%230e0e10'>A</text></svg>">
+<style>
+/* Gleiche Gestaltung wie die Familienkasse: hellgrau, fast weiße Karten, Limette, Himmelblau, Pink */
+:root {
+  --bg: #e9e7e8; --surface: #fafafa; --surface-2: #efedee; --fg: #0e0e10; --muted: #5f5b60; --line: #dcd8db;
+  --ink: #0e0e10; --on-ink: #ffffff; --on-ink-2: rgba(255,255,255,.14);
+  --blue: #3b97e3; --pink: #e2559f; --lime: #dbfb5f; --on-lime: #0e0e10;
+  --font: "Outfit", "Helvetica Neue", Arial, sans-serif;
+  --r: 28px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121113; --surface: #1d1c1f; --surface-2: #2a282c; --fg: #f4f3f4; --muted: #a8a4a9; --line: #343136;
+  --ink: #2b2930; --blue: #72b9f2; --pink: #f17cbc; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #121113; --surface: #1d1c1f; --surface-2: #2a282c; --fg: #f4f3f4; --muted: #a8a4a9; --line: #343136;
+  --ink: #2b2930; --blue: #72b9f2; --pink: #f17cbc; color-scheme: dark }
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font); font-size: 16px; line-height: 1.45; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+a { color: inherit; text-decoration: none; }
+.wrap { max-width: 64rem; margin-inline: auto; padding: 32px max(16px, env(safe-area-inset-right)) 48px max(16px, env(safe-area-inset-left)); display: flex; flex-direction: column; gap: 28px; }
+
+header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.label { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
+h1 { font-size: clamp(2.6rem, 9vw, 4.4rem); font-weight: 800; letter-spacing: -.035em; line-height: 1; margin: 6px 0 10px; }
+.hl-b { color: var(--blue); } .hl-p { color: var(--pink); }
+.lead { color: var(--muted); font-size: 1.05rem; max-width: 34rem; margin: 0; }
+.langsw { display: inline-flex; background: var(--surface); border-radius: 999px; padding: 3px; gap: 2px; flex: none; }
+.langsw button { border: 0; background: none; font: 700 .78rem var(--font); color: var(--muted); padding: 6px 10px; border-radius: 999px; cursor: pointer; }
+.langsw button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+
+.grid { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+.tool { position: relative; display: flex; flex-direction: column; gap: 12px; background: var(--surface); border-radius: var(--r); padding: 24px; min-height: 13rem;
+  transition: transform .18s ease, box-shadow .18s ease; outline-offset: 4px; }
+.tool:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(0,0,0,.08); }
+.tool:focus-visible { outline: 3px solid var(--pink); }
+.tool .top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.icon { width: 52px; height: 52px; border-radius: 18px; display: grid; place-items: center; font-size: 1.6rem; background: var(--surface-2); flex: none; }
+.tag { font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
+.tool h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.02em; margin: 4px 0 0; }
+.tool p { margin: 0; color: var(--muted); }
+.go { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: .92rem; }
+.go .arr { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--lime); color: var(--on-lime); transition: transform .18s; }
+.tool:hover .go .arr { transform: translateX(4px); }
+.host { font-size: .8rem; color: var(--muted); font-weight: 500; }
+
+/* Hervorgehobenes Tool: schwarz wie die Vermögens-Karte */
+.tool.feature { background: var(--ink); color: var(--on-ink); }
+.tool.feature p, .tool.feature .host { color: rgba(255,255,255,.72); }
+.tool.feature .icon { background: var(--lime); }
+.tool.feature .tag { background: var(--lime); color: var(--on-lime); }
+.tool.feature .new { background: var(--pink); color: #fff; }
+
+footer { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .86rem; flex-wrap: wrap; }
+
+@media (min-width: 720px) {
+  .wrap { padding-top: 56px; gap: 36px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tool { padding: 30px; min-height: 15rem; }
+  .tool.feature { grid-column: 1 / -1; min-height: 13rem; }
+  .tool.feature h2 { font-size: 2.1rem; }
+}
+@media (prefers-reduced-motion: reduce) { .tool, .go .arr { transition: none; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="label">André Kugel</div>
+      <h1><span class="hl-b" data-de="Meine" data-en="My">Meine</span> Tools</h1>
+      <p class="lead" data-de="Eine wachsende Sammlung von Dingen, die ich gebaut habe, um das Leben leichter zu machen." data-en="A growing collection of things I've built to make life easier.">Eine wachsende Sammlung von Dingen, die ich gebaut habe, um das Leben leichter zu machen.</p>
+    </div>
+    <div class="langsw" role="group" aria-label="Sprache / Language"><button type="button" data-l="de" aria-pressed="true">DE</button><button type="button" data-l="en" aria-pressed="false">EN</button></div>
+  </header>
+
+  <main class="grid" id="tools"></main>
+
+  <footer><span id="count"></span><span data-de="Gebaut mit Claude" data-en="Built with Claude">Gebaut mit Claude</span></footer>
+</div>
+
+<script>
+(() => {
+  // Neue Tools einfach hier ergänzen. feature: true = große schwarze Karte oben.
+  const TOOLS = [
+    { url: 'https://familienkasse-nine.vercel.app', icon: '🪙', feature: true, isNew: true,
+      cat: { de: 'Finanzen', en: 'Finance' }, name: { de: 'Familienkasse', en: 'Familienkasse' },
+      text: { de: 'Unsere Familienfinanzen auf einen Blick: Rückblick, Planung, Fixkosten, Potenziale und Vermögen. Gemeinsam planen, Erfolge sehen.',
+              en: 'Our family finances at a glance: review, planning, fixed costs, potentials and wealth. Plan together, see the wins.' } },
+    { url: 'https://project-1a4uz.vercel.app', icon: '🏆',
+      cat: { de: 'Produktivität', en: 'Productivity' }, name: { de: 'Achievement Tracker', en: 'Achievement Tracker' },
+      text: { de: 'Persönliche Meilensteine und Ziele über die Zeit festhalten.', en: 'Track personal milestones and goals over time.' } },
+    { url: 'https://friend-crm-iota.vercel.app', icon: '👥',
+      cat: { de: 'Soziales', en: 'Social' }, name: { de: 'Kinly', en: 'Kinly' },
+      text: { de: 'In Kontakt bleiben mit den Menschen, die zählen: Kontakte pflegen, Treffen planen, niemanden aus den Augen verlieren.',
+              en: 'Stay in touch with the people who matter. Track contacts, plan catch-ups, and never lose touch.' } },
+  ];
+
+  let lang = 'de';
+  try { lang = localStorage.getItem('hub:lang') === 'en' ? 'en' : 'de'; } catch (e) {}
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+
+  function render() {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-de]').forEach((n) => { n.textContent = n.dataset[lang]; });
+    document.querySelectorAll('.langsw button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.l === lang));
+    const box = document.getElementById('tools'); box.textContent = '';
+    TOOLS.forEach((t) => {
+      const a = el('a', 'tool' + (t.feature ? ' feature' : '')); a.href = t.url; a.target = '_blank'; a.rel = 'noopener';
+      const top = el('div', 'top'); top.appendChild(el('div', 'icon', t.icon));
+      const tags = el('div'); tags.style.display = 'flex'; tags.style.gap = '6px';
+      if (t.isNew) tags.appendChild(el('span', 'tag new', lang === 'en' ? 'New' : 'Neu'));
+      tags.appendChild(el('span', 'tag', t.cat[lang])); top.appendChild(tags);
+      const body = el('div'); body.append(el('h2', '', t.name[lang]), el('p', '', t.text[lang]));
+      const go = el('span', 'go'); const arr = el('span', 'arr', '→'); arr.setAttribute('aria-hidden', 'true');
+      go.append(arr, el('span', 'host', new URL(t.url).host));
+      a.append(top, body, go); box.appendChild(a);
+    });
+    document.getElementById('count').textContent = `${TOOLS.length} Tools`;
+  }
+  document.querySelectorAll('.langsw button').forEach((b) => b.addEventListener('click', () => {
+    lang = b.dataset.l; try { localStorage.setItem('hub:lang', lang); } catch (e) {} render();
+  }));
+  render();
+})();
+</script>
+</body>
+</html>
