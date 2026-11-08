@@ -48,6 +48,7 @@ h1 { font-size: clamp(2.6rem, 9vw, 4.4rem); font-weight: 800; letter-spacing: -.
 .tool .top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
 .icon { width: 52px; height: 52px; border-radius: 18px; display: grid; place-items: center; font-size: 1.6rem; background: var(--surface-2); flex: none; }
 .tag { font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
+.tag.new { background: var(--pink); color: #fff; }
 .tool h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.02em; margin: 4px 0 0; }
 .tool p { margin: 0; color: var(--muted); }
 .go { margin-top: auto; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: .92rem; }
@@ -102,6 +103,10 @@ footer { display: flex; justify-content: space-between; gap: 12px; color: var(--
       cat: { de: 'Finanzen', en: 'Finance' }, name: { de: 'Familienkasse', en: 'Familienkasse' },
       text: { de: 'Unsere Familienfinanzen auf einen Blick: Rückblick, Planung, Fixkosten, Potenziale und Vermögen. Gemeinsam planen, Erfolge sehen.',
               en: 'Our family finances at a glance: review, planning, fixed costs, potentials and wealth. Plan together, see the wins.' } },
+    { url: 'https://fitness-coach-nu-six.vercel.app', icon: '💪', isNew: true,
+      cat: { de: 'Gesundheit', en: 'Health' }, name: { de: 'Fitness', en: 'Fitness' },
+      text: { de: 'Mein Training in 15 Minuten: Plan in Blöcken, Sätze loggen, Fortschritt mit Stufenleitern, Läufe und Padel. Mit Anbindung an meinen Fitness Coach.',
+              en: 'My training in 15 minutes: block-based plan, set logging, progress ladders, runs and padel. Connected to my fitness coach.' } },
     { url: 'https://project-1a4uz.vercel.app', icon: '🏆',
       cat: { de: 'Produktivität', en: 'Productivity' }, name: { de: 'Grevo', en: 'Grevo' },
       text: { de: 'Erfolge, Ziele und Kudos festhalten. Mit Jahresrückblick fürs Mitarbeitergespräch.', en: 'Capture wins, goals and kudos. With a yearly review for your performance talk.' } },
