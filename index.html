@@ -47,6 +47,7 @@ h1 { font-size: clamp(2.6rem, 9vw, 4.4rem); font-weight: 800; letter-spacing: -.
 .tool:focus-visible { outline: 3px solid var(--pink); }
 .tool .top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
 .icon { width: 52px; height: 52px; border-radius: 18px; display: grid; place-items: center; font-size: 1.6rem; background: var(--surface-2); flex: none; }
+.icon.logo { background: none; overflow: hidden; }
 .tag { font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
 .tag.new { background: var(--pink); color: #fff; }
 .tool h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.02em; margin: 4px 0 0; }
@@ -107,10 +108,19 @@ footer { display: flex; justify-content: space-between; gap: 12px; color: var(--
       cat: { de: 'Gesundheit', en: 'Health' }, name: { de: 'Fitness', en: 'Fitness' },
       text: { de: 'Mein Training in 15 Minuten: Plan in Blöcken, Sätze loggen, Fortschritt mit Stufenleitern, Läufe und Padel. Mit Anbindung an meinen Fitness Coach.',
               en: 'My training in 15 minutes: block-based plan, set logging, progress ladders, runs and padel. Connected to my fitness coach.' } },
+    { url: 'https://web-orpin-zeta-52.vercel.app', img: 'careerpilot', isNew: true,
+      cat: { de: 'Karriere', en: 'Career' }, name: { de: 'CareerPilot', en: 'CareerPilot' },
+      text: { de: 'Mein Bewerbungs-Cockpit mit Karrierecoach: Stellen werden dreimal täglich gesucht und nach Rolle und Firma bewertet, Anschreiben entstehen im Chat.',
+              en: 'My job-search cockpit with a career coach: roles are searched three times a day and rated by role and company fit, cover letters are written in chat.' } },
     { url: 'https://project-1a4uz.vercel.app', icon: '🏆',
       cat: { de: 'Produktivität', en: 'Productivity' }, name: { de: 'Grevo', en: 'Grevo' },
       text: { de: 'Erfolge, Ziele und Kudos festhalten. Mit Jahresrückblick fürs Mitarbeitergespräch.', en: 'Capture wins, goals and kudos. With a yearly review for your performance talk.' } },
   ];
+
+  // Eigene Logos statt Emoji (gleiche Kachel-Optik wie die App-Icons)
+  const LOGOS = {
+    careerpilot: '<svg viewBox="0 0 100 100" width="52" height="52" aria-hidden="true"><rect width="100" height="100" rx="28" fill="#dbfb5f"/><path d="M66 32 A 24 24 0 1 0 66 68" fill="none" stroke="#0e0e10" stroke-width="10" stroke-linecap="round"/><path d="M70 41 L73 49 L81 52 L73 55 L70 63 L67 55 L59 52 L67 49 Z" fill="#0e0e10"/></svg>',
+  };
 
   let lang = 'de';
   try { lang = localStorage.getItem('hub:lang') === 'en' ? 'en' : 'de'; } catch (e) {}
@@ -123,7 +133,8 @@ footer { display: flex; justify-content: space-between; gap: 12px; color: var(--
     const box = document.getElementById('tools'); box.textContent = '';
     TOOLS.forEach((t) => {
       const a = el('a', 'tool' + (t.feature ? ' feature' : '')); a.href = t.url; a.target = '_blank'; a.rel = 'noopener';
-      const top = el('div', 'top'); top.appendChild(el('div', 'icon', t.icon));
+      const top = el('div', 'top'); const ic = el('div', 'icon' + (t.img ? ' logo' : ''), t.img ? null : t.icon);
+      if (t.img) ic.innerHTML = LOGOS[t.img]; top.appendChild(ic);
       const tags = el('div'); tags.style.display = 'flex'; tags.style.gap = '6px';
       if (t.isNew) tags.appendChild(el('span', 'tag new', lang === 'en' ? 'New' : 'Neu'));
       tags.appendChild(el('span', 'tag', t.cat[lang])); top.appendChild(tags);
